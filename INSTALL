@@ -1,0 +1,22 @@
+virulign: : fast codon-correct alignment for virus pathogens 
+------------------------------------------------------------
+
+Requirements
+------------
+* We use CMake (cmake.org) for the build process, and tested this on GNU/Linux, MacOS and Windows (Visual Studio C++ Express).
+* C++ environment.
+
+Build instructions
+------------------
+Create a temporary build directory (for example within the project root)
+The CMAKE_INSTALL_PREFIX variable can point to any directory you want to 
+install virulign in
+
+$ mkdir build
+$ cd build
+$ cmake ../ 
+$ make
+
+To install
+----------
+$ make install
