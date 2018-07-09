@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
   int obligatoryParams = 2;
   if(argc < obligatoryParams+1) {
     std::cerr << "Usage: virulign [reference.fasta orf-description.xml] sequences.fasta" << std::endl 
-	      << "optional paramaters (first option will be the default):" << std::endl
+	      << "optional parameters (first option will be the default):" << std::endl
 	      << "  --exportKind [Mutations PairwiseAlignments GlobalAlignment PositionTable MutationTable]" << std::endl  
 	      << "  --exportAlphabet [AminoAcids Nucleotides]" << std::endl
 	      << "  --exportWithInsertions [yes no]" << std::endl
