@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
   if (!ends_with(refSeqFileName, ".fasta") && !ends_with(refSeqFileName, ".xml")) {
     std::cerr << 
       "Unknown reference sequence: "
-      "expected FASTA file or and XML describing the ORF" << std::endl;
+      "expected a FASTA file or an XML file that describes the ORF" << std::endl;
     exit(1);
   }
   ReferenceSequence refSeq = loadRefSeq(refSeqFileName);
