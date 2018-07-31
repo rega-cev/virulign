@@ -27,14 +27,16 @@ int main(int argc, char **argv) {
   int obligatoryParams = 2;
   if(argc < obligatoryParams+1) {
     std::cerr << "Usage: virulign [reference.fasta orf-description.xml] sequences.fasta" << std::endl 
-	      << "optional parameters (first option will be the default):" << std::endl
+	      << "Optional parameters (first option will be the default):" << std::endl
 	      << "  --exportKind [Mutations PairwiseAlignments GlobalAlignment PositionTable MutationTable]" << std::endl  
 	      << "  --exportAlphabet [AminoAcids Nucleotides]" << std::endl
 	      << "  --exportWithInsertions [yes no]" << std::endl
 	      << "  --exportReferenceSequence [no yes]" << std::endl
 	      << "  --gapExtensionPenalty doubleValue=>3.3" << std::endl
 	      << "  --gapOpenPenalty doubleValue=>10.0" << std::endl
-	      << "  --maxFrameShifts intValue=>3" << std::endl;
+	      << "  --maxFrameShifts intValue=>3" << std::endl
+	      << "Output: The alignment will be printed to standard out and any progress or error messages will be printed to the standard error. This output can be redirected to files, e.g.:" << std::endl
+              << "   virulign ref.xml sequence.fasta > alignment.mutations 2> alignment.err" << std::endl;
     exit(0);
   }
 	
