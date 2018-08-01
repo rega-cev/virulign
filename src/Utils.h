@@ -33,4 +33,8 @@ std::string to_upper_copy(const std::string& s);
 
 bool ends_with(const std::string& s, const std::string& p);
 
+long long current_time_ms();
+
+std::string format_time(const long long& milliseconds);
+
 #endif // UTILS_H_ 

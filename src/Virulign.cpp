@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <stdexcept>
+#include <iomanip>
 
 #include <NeedlemanWunsh.h>
 
@@ -35,6 +36,7 @@ int main(int argc, char **argv) {
 	      << "  --gapExtensionPenalty doubleValue=>3.3" << std::endl
 	      << "  --gapOpenPenalty doubleValue=>10.0" << std::endl
 	      << "  --maxFrameShifts intValue=>3" << std::endl
+              << "  --progress [no yes]" << std::endl
 	      << "Output: The alignment will be printed to standard out and any progress or error messages will be printed to the standard error. This output can be redirected to files, e.g.:" << std::endl
               << "   virulign ref.xml sequence.fasta > alignment.mutations 2> alignment.err" << std::endl;
     exit(0);
@@ -80,6 +82,8 @@ int main(int argc, char **argv) {
   double gapExtensionPenalty = 3.3;
   double gapOpenPenalty = 10.0;
   int maxFrameShifts = 3;
+
+  bool progress = false;
 
   std::string ntDebugDir;
 	
@@ -147,6 +151,15 @@ int main(int argc, char **argv) {
         std::cerr << "Unkown value " << parameterValue << " for parameter : " << parameterName << std::endl;
         exit(0);
       }
+    } else if(equalsString(parameterName,"--progress")) {
+      if(equalsString(parameterValue,"yes")) {
+	progress = true;
+      } else if(equalsString(parameterValue,"no")) {
+	progress = false;
+      } else {
+	std::cerr << "Unkown value " << parameterValue << " for parameter : " << parameterName << std::endl; 
+	exit(0);
+      } 
     } else if(equalsString(parameterName,"--nt-debug")) {
       ntDebugDir = parameterValue;  
     } else {
@@ -173,10 +186,20 @@ int main(int argc, char **argv) {
     }
   }
 
+  long int start = current_time_ms();
+  
   for (i = 0; i < targets.size(); ++i) {
     std::cerr << "Align target " << i 
             << " (" << targets[i].name() << ")" << std::endl;
     results.push_back(Alignment::compute(refSeq, targets[i], &algorithm, maxFrameShifts));
+    if (progress) {
+      long int end = current_time_ms();
+      long int elapsed = end - start;
+      double time_per_seq = (double)elapsed / (i + 1);
+      double estimated_time_left = time_per_seq * (targets.size() - (i + 1));
+
+      std::cerr << "Progress: " << (i + 1) << "/" << targets.size() << " sequences aligned (" << std::fixed << std::setprecision(2) << (i + 1) / (double)targets.size() * 100 << "%), Estimated time left " <<  format_time(estimated_time_left) << std::endl;
+    }
   }
 
   ResultsExporter exporter(results, exportKind, exportAlphabet, exportWithInsertions);
