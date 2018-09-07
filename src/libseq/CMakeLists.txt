@@ -11,6 +11,3 @@ SET(SOURCES
 )
     
 ADD_LIBRARY(seq ${SOURCES})
-
-INSTALL_TARGETS(/lib seq)
-INSTALL_FILES(/include .*\\.h)
