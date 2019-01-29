@@ -9,12 +9,16 @@ Requirements
 Build instructions
 ------------------
 Create a temporary build directory (for example within the project root).
-The CMAKE_INSTALL_PREFIX variable can point to any directory you want to install virulign to.
-To generate binaries to use in production, use -DCMAKE_BUILD_TYPE=Release.
-
+To install virulign to the operating system's default location, use:
 $ mkdir build
 $ cd build
-$ cmake ../ 
+$ cmake ../ -DCMAKE_BUILD_TYPE=Release 
+$ make
+
+To install virulign to a custom location, use the CMAKE_INSTALL_PREFIX variable:
+$ mkdir build
+$ cd build
+$ cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/soft/virulign/
 $ make
 
 To install
