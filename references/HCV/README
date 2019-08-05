@@ -1,0 +1,4 @@
+To get FN666429:
+efetch -db sequences -id FN666429 -format gpc > FN666429.insd.xml
+manually remove the outer XML tag (Set)
+python2 ~/projects/virulign-tools/annotations/genbank_to_virulign.py ../FN666429.insd.xml "HCV2" 314 9398 > HCV2-FN666429.xml
