@@ -36,6 +36,7 @@ int main(int argc, char **argv) {
 	      << "  --gapExtensionPenalty doubleValue=>3.3" << std::endl
 	      << "  --gapOpenPenalty doubleValue=>10.0" << std::endl
 	      << "  --maxFrameShifts intValue=>3" << std::endl
+	      << "  --referenceProtein protein" << std::endl
               << "  --progress [no yes]" << std::endl
               << "  --nt-debug directory" << std::endl
 	      << "Output: The alignment will be printed to standard out and any progress or error messages will be printed to the standard error. This output can be redirected to files, e.g.:" << std::endl
@@ -86,6 +87,8 @@ int main(int argc, char **argv) {
   int maxFrameShifts = 3;
 
   bool progress = false;
+
+  std::string referenceProtein;
 
   std::string ntDebugDir;
 	
@@ -152,6 +155,8 @@ int main(int argc, char **argv) {
         std::cerr << "Unkown value " << parameterValue << " for parameter : " << parameterName << std::endl;
         exit(0);
       }
+    } else if(equalsString(parameterName,"--referenceProtein")) {
+        referenceProtein = parameterValue;
     } else if(equalsString(parameterName,"--progress")) {
       if(equalsString(parameterValue,"yes")) {
 	progress = true;
@@ -168,7 +173,28 @@ int main(int argc, char **argv) {
       exit(0);
     }
   }
-	
+
+  if (!referenceProtein.empty()) {
+    std::string nt = refSeq.asString();
+    bool found = false;
+    for (unsigned r = 0; r < refSeq.regions().size(); ++r) {
+        const ReferenceSequence::Region& region = refSeq.regions()[r];
+        if (region.prefix() == referenceProtein) {
+            nt = nt.substr(region.begin(), region.end());
+            std::string name = refSeq.name() + "_" + referenceProtein;
+            std::string description = "";
+            seq::NTSequence ntSeq = seq::NTSequence(name, description, nt);
+            refSeq = ntSeq;
+            refSeq.addRegion(region);
+            
+            found = true;
+        }
+        if (!found) {
+            std::cerr << "Unknown reference protein: " << referenceProtein << std::endl;
+        }
+    }
+  }
+
   if (exportRefSeq) {
     seq::NTSequence refNtSeq = refSeq;
     targets.insert(targets.begin(), refNtSeq);
