@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
   ExportKind exportKind = Mutations;
   ExportAlphabet exportAlphabet = AminoAcids;
   bool exportWithInsertions = true;
+  bool exportRefSeq = false;
 
   double gapExtensionPenalty = 3.3;
   double gapOpenPenalty = 10.0;
@@ -119,8 +120,7 @@ int main(int argc, char **argv) {
       }
     } else if(equalsString(parameterName,"--exportReferenceSequence")) {
       if (equalsString(parameterValue,"yes")) {
-	seq::NTSequence refNtSeq = refSeq;
-	targets.insert(targets.begin(), refNtSeq);
+          exportRefSeq = true;
       }
     } else if(equalsString(parameterName,"--exportWithInsertions")) {
       if(equalsString(parameterValue,"yes")) {
@@ -169,6 +169,11 @@ int main(int argc, char **argv) {
     }
   }
 	
+  if (exportRefSeq) {
+    seq::NTSequence refNtSeq = refSeq;
+    targets.insert(targets.begin(), refNtSeq);
+  }
+
   std::vector<Alignment> results;
  
   seq::NeedlemanWunsh algorithm(-gapOpenPenalty, -gapExtensionPenalty);
