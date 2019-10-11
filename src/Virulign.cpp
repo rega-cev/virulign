@@ -189,9 +189,9 @@ int main(int argc, char **argv) {
             
             found = true;
         }
-        if (!found) {
-            std::cerr << "Unknown reference protein: " << referenceProtein << std::endl;
-        }
+    }
+    if (!found) {
+        std::cerr << "Unknown reference protein: " << referenceProtein << std::endl;
     }
   }
 
