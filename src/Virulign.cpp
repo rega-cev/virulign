@@ -180,12 +180,15 @@ int main(int argc, char **argv) {
     for (unsigned r = 0; r < refSeq.regions().size(); ++r) {
         const ReferenceSequence::Region& region = refSeq.regions()[r];
         if (region.prefix() == referenceProtein) {
-            nt = nt.substr(region.begin(), region.end());
+            int start = region.begin()*3;
+            int end = region.end()*3;
+            int len = end - start;
+            nt = nt.substr(start, len);
             std::string name = refSeq.name() + "_" + referenceProtein;
             std::string description = "";
             seq::NTSequence ntSeq = seq::NTSequence(name, description, nt);
             refSeq = ntSeq;
-            refSeq.addRegion(region);
+            refSeq.addRegion(ReferenceSequence::Region(0, len, region.prefix()));
             
             found = true;
         }
