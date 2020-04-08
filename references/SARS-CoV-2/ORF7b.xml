@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SARS-CoV-2 ORF7b from NC_045512.2 (27756-27887) -->
+<orf name="ORF7b" description="ORF7b" referenceSequence="ATGATTGAACTTTCATTAATTGACTTCTATTTGTGCTTTTTAGCCTTTCTGCTATTCCTTGTTTTAATTATGCTTATTATCTTTTGGTTCTCACTTGAACTGCAAGATCATAATGAAACTTGTCACGCCTAA" >
+<protein abbreviation="ORF7b" startPosition="1" stopPosition="131" />
+</orf>
