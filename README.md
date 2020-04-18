@@ -1,6 +1,4 @@
-```diff
-- **! See [here](https://github.com/rega-cev/virulign/tree/master/references/SARS-CoV-2) for xml files for alignment and annotation of SARS-CoV-2 genomes** 
-```
+**! See [here](https://github.com/rega-cev/virulign/tree/master/references/SARS-CoV-2) for xml files for alignment and annotation of SARS-CoV-2 genomes** 
 
 
 
