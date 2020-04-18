@@ -1,4 +1,6 @@
-# ! See [here](https://github.com/rega-cev/virulign/tree/master/references/SARS-CoV-2) for xml files for alignment and annotation of SARS-CoV-2 genomes
+**! See [here](https://github.com/rega-cev/virulign/tree/master/references/SARS-CoV-2) for xml files for alignment and annotation of SARS-CoV-2 genomes** 
+
+
 
 
 VIRULIGN is a tool for codon-correct pairwise alignments, with an augmented functionality to annotate the alignment according the positions of the proteins. We present a [tutorial](https://github.com/rega-cev/virulign-tutorial) demonstrating VIRULIGN's functionality for three different pathogens (i.e., HIV-1, Dengue virus, Zika virus).
