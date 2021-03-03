@@ -171,6 +171,7 @@ int main(int argc, char **argv) {
   }
 	
   std::vector<Alignment> results;
+  results.reserve(targets.size());
  
   seq::NeedlemanWunsh algorithm(-gapOpenPenalty, -gapExtensionPenalty);
 
@@ -194,7 +195,7 @@ int main(int argc, char **argv) {
   for (i = 0; i < targets.size(); ++i) {
     std::cerr << "Align target " << i
             << " (" << targets[i].name() << ")" << std::endl;
-    results.push_back(Alignment::compute(refSeq, targets[i], &algorithm, maxFrameShifts));
+    results[i] = Alignment::compute(refSeq, targets[i], &algorithm, maxFrameShifts);
     if (progress) {
       long int end = current_time_ms();
       long int elapsed = end - start;
