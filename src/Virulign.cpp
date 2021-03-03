@@ -192,8 +192,8 @@ int main(int argc, char **argv) {
   
   #pragma omp parallel for
   for (i = 0; i < targets.size(); ++i) {
-//    std::cerr << "Align target " << i
-//            << " (" << targets[i].name() << ")" << std::endl;
+    std::cerr << "Align target " << i
+            << " (" << targets[i].name() << ")" << std::endl;
     results.push_back(Alignment::compute(refSeq, targets[i], &algorithm, maxFrameShifts));
     if (progress) {
       long int end = current_time_ms();
