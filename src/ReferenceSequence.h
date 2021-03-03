@@ -45,6 +45,7 @@ public:
   parseProteinReferences(std::string genomesXmlFile);
   static ReferenceSequence 
   parseOrfReferenceFile(const std::string& fileName);
+  ReferenceSequence();
 
 private:
   std::vector<Region> regions_;

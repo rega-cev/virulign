@@ -171,7 +171,7 @@ int main(int argc, char **argv) {
   }
 	
   std::vector<Alignment> results;
-  results.reserve(targets.size());
+  results.resize(targets.size());
  
   seq::NeedlemanWunsh algorithm(-gapOpenPenalty, -gapExtensionPenalty);
 
