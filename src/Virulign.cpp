@@ -193,8 +193,6 @@ int main(int argc, char **argv) {
   
   #pragma omp parallel for
   for (i = 0; i < targets.size(); ++i) {
-    std::cerr << "Align target " << i
-            << " (" << targets[i].name() << ")" << std::endl;
     results[i] = Alignment::compute(refSeq, targets[i], &algorithm, maxFrameShifts);
     if (progress) {
       long int end = current_time_ms();
@@ -203,6 +201,9 @@ int main(int argc, char **argv) {
       double estimated_time_left = time_per_seq * (targets.size() - (i + 1));
 
       std::cerr << "Progress: " << (i + 1) << "/" << targets.size() << " sequences aligned (" << std::fixed << std::setprecision(2) << (i + 1) / (double)targets.size() * 100 << "%), Estimated time left " <<  format_time(estimated_time_left) << std::endl;
+    } else {
+      std::cerr << "Align target " << i
+                << " (" << targets[i].name() << ")" << std::endl;
     }
   }
 
