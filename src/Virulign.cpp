@@ -8,6 +8,8 @@
 
 #include <NeedlemanWunsh.h>
 
+#include "cursor_control.cpp"
+#include "progress_bar.cpp"
 #include "ReferenceSequence.h"
 #include "Alignment.h"
 #include "ResultsExporter.h"
@@ -189,23 +191,35 @@ int main(int argc, char **argv) {
     }
   }
 
-  long int start = current_time_ms();
+  indicators::show_console_cursor(false);
+
+  indicators::ProgressBar bar{indicators::option::BarWidth{50},
+                              indicators::option::Start{" ["},
+                              indicators::option::Fill{"█"},
+                              indicators::option::Lead{"█"},
+                              indicators::option::Remainder{"-"},
+                              indicators::option::End{"]"},
+                              indicators::option::PrefixText{"Training Gaze Network"},
+                              indicators::option::ForegroundColor{indicators::Color::yellow},
+                              indicators::option::ShowElapsedTime{true},
+                              indicators::option::ShowRemainingTime{true},
+                              indicators::option::MaxProgress{targets.size()},
+                              indicators::option::FontStyles{
+                                  std::vector<indicators::FontStyle>{indicators::FontStyle::bold}}};
   
   #pragma omp parallel for
   for (i = 0; i < targets.size(); ++i) {
     results[i] = Alignment::compute(refSeq, targets[i], &algorithm, maxFrameShifts);
     if (progress) {
-      long int end = current_time_ms();
-      long int elapsed = end - start;
-      double time_per_seq = (double)elapsed / (i + 1);
-      double estimated_time_left = time_per_seq * (targets.size() - (i + 1));
-
-      std::cerr << "Progress: " << (i + 1) << "/" << targets.size() << " sequences aligned (" << std::fixed << std::setprecision(2) << (i + 1) / (double)targets.size() * 100 << "%), Estimated time left " <<  format_time(estimated_time_left) << std::endl;
+      bar.tick();
     } else {
       std::cerr << "Align target " << i
                 << " (" << targets[i].name() << ")" << std::endl;
     }
   }
+
+  // Show cursor
+  indicators::show_console_cursor(true);
 
   ResultsExporter exporter(results, exportKind, exportAlphabet, exportWithInsertions);
 

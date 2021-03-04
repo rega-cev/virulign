@@ -1,6 +1,7 @@
 SUBDIRS(libseq)
 SUBDIRS(mxml)
 SUBDIRS(mxml-utils)
+SUBDIRS(indicators)
 
 SET(LIB_SOURCES
     Alignment.cpp
@@ -10,11 +11,11 @@ SET(LIB_SOURCES
     ResultsExporter.cpp
 )
 
-include_directories(libseq mxml mxml-utils)
+include_directories(libseq mxml mxml-utils indicators)
 
 ADD_LIBRARY(virulignlib ${LIB_SOURCES})
 ADD_EXECUTABLE(virulign Virulign.cpp)
-TARGET_LINK_LIBRARIES(virulign virulignlib seq mxml mxml-utils)
+TARGET_LINK_LIBRARIES(virulign virulignlib seq mxml mxml-utils indicators)
 
 find_package(OpenMP)
 if (OPENMP_FOUND)
