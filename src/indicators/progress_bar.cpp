@@ -328,7 +328,7 @@ public:
     const auto postfix_pair = get_postfix_text();
     const auto postfix_text = postfix_pair.first;
     const auto postfix_length = postfix_pair.second;
-    os << postfix_text;
+    os << postfix_text << "\r";
 
     // Get length of prefix text and postfix text
     const auto start_length = get_value<details::ProgressBarOption::start>().size();
