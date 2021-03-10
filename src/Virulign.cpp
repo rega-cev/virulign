@@ -4,7 +4,11 @@
 #include <vector>
 #include <stdexcept>
 #include <iomanip>
-#include <omp.h>
+#ifdef _OPENMP
+   #include <omp.h>
+#else
+   #define omp_get_thread_num() 0
+#endif
 
 #include <NeedlemanWunsh.h>
 
@@ -171,8 +175,10 @@ int main(int argc, char **argv) {
       try {
         threads = lexical_cast<int>(parameterValue);
         if(threads > 0) {
-          omp_set_dynamic(0);
-          omp_set_num_threads(threads);
+          #ifdef _OPENMP
+            omp_set_dynamic(0);
+            omp_set_num_threads(threads);
+          #endif
         }
       } catch (std::bad_cast& e) {
         std::cerr << "Unkown value " << parameterValue << " for parameter : " << parameterName << std::endl;
