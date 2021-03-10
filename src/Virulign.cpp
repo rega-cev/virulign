@@ -200,12 +200,9 @@ int main(int argc, char **argv) {
                               indicators::option::Remainder{" "},
                               indicators::option::End{"]"},
                               indicators::option::PrefixText{"Aligning targets"},
-                              indicators::option::ForegroundColor{indicators::Color::yellow},
                               indicators::option::ShowElapsedTime{true},
                               indicators::option::ShowRemainingTime{true},
-                              indicators::option::MaxProgress{targets.size()},
-                              indicators::option::FontStyles{
-                                  std::vector<indicators::FontStyle>{indicators::FontStyle::bold}}};
+                              indicators::option::MaxProgress{targets.size()}};
   
   #pragma omp parallel for
   for (i = 0; i < targets.size(); ++i) {

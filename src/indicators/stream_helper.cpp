@@ -3,7 +3,6 @@
 
 #include "display_width.cpp"
 #include "setting.cpp"
-#include "termcolor.cpp"
 
 #include <algorithm>
 #include <chrono>
@@ -17,68 +16,6 @@
 
 namespace indicators {
 namespace details {
-
-inline void set_stream_color(std::ostream &os, Color color) {
-  switch (color) {
-  case Color::grey:
-    os << termcolor::grey;
-    break;
-  case Color::red:
-    os << termcolor::red;
-    break;
-  case Color::green:
-    os << termcolor::green;
-    break;
-  case Color::yellow:
-    os << termcolor::yellow;
-    break;
-  case Color::blue:
-    os << termcolor::blue;
-    break;
-  case Color::magenta:
-    os << termcolor::magenta;
-    break;
-  case Color::cyan:
-    os << termcolor::cyan;
-    break;
-  case Color::white:
-    os << termcolor::white;
-    break;
-  default:
-    assert(false);
-  }
-}
-
-inline void set_font_style(std::ostream &os, FontStyle style) {
-  switch (style) {
-  case FontStyle::bold:
-    os << termcolor::bold;
-    break;
-  case FontStyle::dark:
-    os << termcolor::dark;
-    break;
-  case FontStyle::italic:
-    os << termcolor::italic;
-    break;
-  case FontStyle::underline:
-    os << termcolor::underline;
-    break;
-  case FontStyle::blink:
-    os << termcolor::blink;
-    break;
-  case FontStyle::reverse:
-    os << termcolor::reverse;
-    break;
-  case FontStyle::concealed:
-    os << termcolor::concealed;
-    break;
-  case FontStyle::crossed:
-    os << termcolor::crossed;
-    break;
-  default:
-    break;
-  }
-}
 
 inline std::ostream &write_duration(std::ostream &os, std::chrono::nanoseconds ns) {
   using namespace std;

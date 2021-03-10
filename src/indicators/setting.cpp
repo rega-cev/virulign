@@ -28,8 +28,6 @@ SOFTWARE.
 #pragma once
 
 #include <cstddef>
-#include "color.cpp"
-#include "font_style.cpp"
 #include "progress_type.cpp"
 #include <string>
 #include <tuple>
@@ -88,10 +86,8 @@ enum class ProgressBarOption {
   show_elapsed_time,
   show_remaining_time,
   saved_start_time,
-  foreground_color,
   spinner_show,
   spinner_states,
-  font_styles,
   hide_bar_when_complete,
   min_progress,
   max_progress,
@@ -203,14 +199,11 @@ using ShowPercentage = details::BooleanSetting<details::ProgressBarOption::show_
 using ShowElapsedTime = details::BooleanSetting<details::ProgressBarOption::show_elapsed_time>;
 using ShowRemainingTime = details::BooleanSetting<details::ProgressBarOption::show_remaining_time>;
 using SavedStartTime = details::BooleanSetting<details::ProgressBarOption::saved_start_time>;
-using ForegroundColor = details::Setting<Color, details::ProgressBarOption::foreground_color>;
 using ShowSpinner = details::BooleanSetting<details::ProgressBarOption::spinner_show>;
 using SpinnerStates =
     details::Setting<std::vector<std::string>, details::ProgressBarOption::spinner_states>;
 using HideBarWhenComplete =
     details::BooleanSetting<details::ProgressBarOption::hide_bar_when_complete>;
-using FontStyles =
-    details::Setting<std::vector<FontStyle>, details::ProgressBarOption::font_styles>;
 using MinProgress = details::IntegerSetting<details::ProgressBarOption::min_progress>;
 using MaxProgress = details::IntegerSetting<details::ProgressBarOption::max_progress>;
 using ProgressType = details::Setting<ProgressType, details::ProgressBarOption::progress_type>;

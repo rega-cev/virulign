@@ -7,7 +7,6 @@
 #include <atomic>
 #include <chrono>
 #include <cmath>
-#include "color.cpp"
 #include "setting.cpp"
 #include "terminal_size.cpp"
 #include <iomanip>
@@ -29,8 +28,7 @@ class ProgressBar {
                  option::Remainder, option::MaxPostfixTextLen,
                  option::Completed, option::ShowPercentage,
                  option::ShowElapsedTime, option::ShowRemainingTime,
-                 option::SavedStartTime, option::ForegroundColor,
-                 option::FontStyles, option::MinProgress, option::MaxProgress,
+                 option::SavedStartTime, option::MinProgress, option::MaxProgress,
                  option::ProgressType, option::Stream>;
 
 public:
@@ -69,12 +67,6 @@ public:
                 option::ShowRemainingTime{false}, std::forward<Args>(args)...),
             details::get<details::ProgressBarOption::saved_start_time>(
                 option::SavedStartTime{false}, std::forward<Args>(args)...),
-            details::get<details::ProgressBarOption::foreground_color>(
-                option::ForegroundColor{Color::unspecified},
-                std::forward<Args>(args)...),
-            details::get<details::ProgressBarOption::font_styles>(
-                option::FontStyles{std::vector<FontStyle>{}},
-                std::forward<Args>(args)...),
             details::get<details::ProgressBarOption::min_progress>(
                 option::MinProgress{0}, std::forward<Args>(args)...),
             details::get<details::ProgressBarOption::max_progress>(
