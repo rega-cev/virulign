@@ -301,14 +301,6 @@ public:
       elapsed_ = std::chrono::duration_cast<std::chrono::nanoseconds>(
           now - start_time_point_);
 
-    if (get_value<details::ProgressBarOption::foreground_color>() !=
-        Color::unspecified)
-      details::set_stream_color(
-          os, get_value<details::ProgressBarOption::foreground_color>());
-
-    for (auto &style : get_value<details::ProgressBarOption::font_styles>())
-      details::set_font_style(os, style);
-
     const auto prefix_pair = get_prefix_text();
     const auto prefix_text = prefix_pair.first;
     const auto prefix_length = prefix_pair.second;
@@ -350,7 +342,7 @@ public:
     }
     if (get_value<details::ProgressBarOption::completed>() &&
         !from_multi_progress) // Don't std::endl if calling from MultiProgress
-      os << termcolor::reset << std::endl;
+      os << std::endl;
   }
 };
 
