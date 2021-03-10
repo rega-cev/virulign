@@ -40,6 +40,7 @@ int main(int argc, char **argv) {
 	      << "  --gapOpenPenalty doubleValue=>10.0" << std::endl
 	      << "  --maxFrameShifts intValue=>3" << std::endl
               << "  --progress [no yes]" << std::endl
+              << "  --threads intValue=>1 [default: all cpus available]" << std::endl
               << "  --nt-debug directory" << std::endl
 	      << "Output: The alignment will be printed to standard out and any progress or error messages will be printed to the standard error. This output can be redirected to files, e.g.:" << std::endl
               << "   virulign ref.xml sequence.fasta > alignment.mutations 2> alignment.err" << std::endl;
@@ -88,6 +89,8 @@ int main(int argc, char **argv) {
   int maxFrameShifts = 3;
 
   bool progress = false;
+
+  int threads = -1;
 
   std::string ntDebugDir;
 	
@@ -163,7 +166,18 @@ int main(int argc, char **argv) {
       } else {
 	std::cerr << "Unkown value " << parameterValue << " for parameter : " << parameterName << std::endl; 
 	exit(0);
-      } 
+      }
+    } else if(equalsString(parameterName,"--threads")) {
+      try {
+        threads = lexical_cast<int>(parameterValue);
+        if(threads > 0) {
+          omp_set_dynamic(0);
+          omp_set_num_threads(threads);
+        }
+      } catch (std::bad_cast& e) {
+        std::cerr << "Unkown value " << parameterValue << " for parameter : " << parameterName << std::endl;
+        exit(0);
+      }
     } else if(equalsString(parameterName,"--nt-debug")) {
       ntDebugDir = parameterValue;  
     } else {
