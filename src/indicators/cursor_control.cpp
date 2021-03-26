@@ -53,7 +53,7 @@ static inline void show_console_cursor(bool const show) {
 #else
 
 static inline void show_console_cursor(bool const show) {
-  std::fputs(show ? "\033[?25h" : "\033[?25l", stdout);
+  std::fputs(show ? "\033[?25h" : "\033[?25l", stderr);
 }
 
 #endif
