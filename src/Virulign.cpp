@@ -19,6 +19,7 @@
 #include "ResultsExporter.h"
 #include "CLIUtils.h"
 #include "Utils.h"
+#include "virulign_version.h"
 
 ReferenceSequence loadRefSeq(const std::string& fn) {
   if (ends_with(fn, ".fasta")) {
@@ -31,6 +32,14 @@ ReferenceSequence loadRefSeq(const std::string& fn) {
 
 int main(int argc, char **argv) {
   unsigned int i;
+
+  // Print version and exit
+  for(int i = 1; i < argc; i++) {
+    if(equalsString(argv[i],"--version")) {
+      std::cerr << "VIRULIGN " << VIRULIGN_VERSION << std::endl;
+      exit(0);
+    }
+  }
 	
   int obligatoryParams = 2;
   if(argc < obligatoryParams+1) {
@@ -44,8 +53,9 @@ int main(int argc, char **argv) {
 	      << "  --gapOpenPenalty doubleValue=>10.0" << std::endl
 	      << "  --maxFrameShifts intValue=>3" << std::endl
               << "  --progress [no yes]" << std::endl
-              << "  --threads intValue=>1 [default: all cpus available]" << std::endl
               << "  --nt-debug directory" << std::endl
+              << "  --threads intValue=>1 [default: all cpus available]" << std::endl
+              << "  --version    Show version and exit" << std::endl
 	      << "Output: The alignment will be printed to standard out and any progress or error messages will be printed to the standard error. This output can be redirected to files, e.g.:" << std::endl
               << "   virulign ref.xml sequence.fasta > alignment.mutations 2> alignment.err" << std::endl;
     exit(0);

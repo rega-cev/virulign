@@ -27,4 +27,15 @@ else()
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unknown-pragmas")
 endif()
 
+find_package(Git)
+find_package(Hg)
+add_custom_target(version
+  ${CMAKE_COMMAND} -D SRC=${CMAKE_SOURCE_DIR}/src/virulign_version.h.in
+                   -D DST=${CMAKE_SOURCE_DIR}/src/virulign_version.h
+                   -D GIT_EXECUTABLE=${GIT_EXECUTABLE}
+                   -D HG_EXECUTABLE=${HG_EXECUTABLE}
+                   -P ${CMAKE_SOURCE_DIR}/src/GenerateVersionHeader.cmake
+  )
+add_dependencies(virulign version)
+
 install(TARGETS virulign DESTINATION bin)
