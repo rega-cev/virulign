@@ -107,3 +107,5 @@ ReferenceSequence::parseProteinReferences(std::string genomesXmlFile)
   return genomesMap;
 }
 
+ReferenceSequence::ReferenceSequence() {
+}

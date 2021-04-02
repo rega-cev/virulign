@@ -51,6 +51,8 @@ public:
 
   void revert(const IsolateMutation& mutation);
 
+  Alignment();
+
 private:
   Alignment(const ReferenceSequence& aref,
 	    const seq::NTSequence&   atarget);

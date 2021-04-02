@@ -317,4 +317,5 @@ codonMutations(const ReferenceSequence::Region& region,
   return result;
 }
 
-
+Alignment::Alignment() {
+}
